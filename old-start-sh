@@ -1,12 +1,16 @@
 #!/bin/bash
 
-# Start your bot/app
+# Start XFCE VNC server
+su - railway -c "vncserver :1 -geometry 1024x768 -depth 24"
+
+# Start noVNC (port 3000)
+websockify --web=/usr/share/novnc/ 0.0.0.0:3000 localhost:5901 &
+
+# Start code-server (optional, port 3002 internal)
+su - railway -c "code-server --bind-addr 0.0.0.0:3002 --auth password --password railway &"
+
+# Start your node app
+cd /home/railway/app
 npm start &
-
-# Start VS Code (main UI)
-code-server --bind-addr 0.0.0.0:3000 --auth password --password railway &
-
-# Optional: terminal (might not be accessible externally)
-ttyd -p 3001 bash &
 
 wait
