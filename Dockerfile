@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system tools
+# Update + install core tools
 RUN apt update && apt install -y \
     curl \
     wget \
@@ -11,30 +11,38 @@ RUN apt update && apt install -y \
     sudo \
     python3 \
     python3-pip \
-    nodejs \
-    npm
+    ca-certificates \
+    gnupg
 
-# Install code-server (browser VS Code)
-RUN curl -fsSL https://code-server.dev/install.sh | sh
+# Install latest Node.js (better than Ubuntu default)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt install -y nodejs
 
-# Install ttyd (web terminal)
+# Install ttyd
 RUN apt install -y ttyd
 
+# Install code-server (VS Code browser)
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+
 # Create user
-RUN useradd -m railway && echo "railway:railway" | chpasswd && adduser railway sudo
+RUN useradd -m railway \
+    && echo "railway:railway" | chpasswd \
+    && adduser railway sudo
 
 WORKDIR /home/railway/app
 
-# Copy your repo files
+# Copy files
 COPY . .
 
-# Install Node dependencies (important for your bot)
-RUN npm install || true
+# Install dependencies (fail if broken)
+RUN npm install
 
 # Copy startup script
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
+# Expose Railway port
 EXPOSE 3000
 
+# Start container
 CMD ["/start.sh"]
