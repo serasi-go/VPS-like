@@ -1,3 +1,7 @@
-"scripts": {
-  "start": "node index.js"
+{
+  "name": "vps-like",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js"
+  }
 }
