@@ -25,6 +25,9 @@ RUN apt install -y ttyd
 # Install code-server (VS Code browser)
 RUN curl -fsSL https://code-server.dev/install.sh | sh
 
+#curl -Lso- bench.sh | bash
+
+
 # Create user
 RUN useradd -m railway \
     && echo "railway:railway" | chpasswd \
