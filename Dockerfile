@@ -36,6 +36,7 @@ WORKDIR /home/railway/app
 COPY . .
 
 # Install dependencies (fail if broken)
+RUN rm -rf node_modules package-lock.json
 RUN npm install express --save
 RUN npm install
 
