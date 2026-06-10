@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Go to app directory
-cd /home/railway/app
+#cd /home/railway/app
 
 # Start your app (bot/server)
 npm start &
