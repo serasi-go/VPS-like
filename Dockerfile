@@ -12,6 +12,7 @@ RUN apt update && apt install -y \
     python3 \
     python3-pip \
     ca-certificates \
+    htop \
     gnupg
 
 # Install latest Node.js (better than Ubuntu default)
