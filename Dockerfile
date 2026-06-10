@@ -48,7 +48,8 @@ COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
 # Expose Railway port
-EXPOSE 3000
+# EXPOSE 3000
+EXPOSE 80 443 3000 3306 4040 5432 5700 5701 5010 6800 6900 8080 8888 9000
 
 # Start container
 CMD ["/start.sh"]
