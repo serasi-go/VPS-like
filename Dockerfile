@@ -36,6 +36,7 @@ WORKDIR /home/railway/app
 COPY . .
 
 # Install dependencies (fail if broken)
+RUN npm install express --save
 RUN npm install
 
 # Copy startup script
